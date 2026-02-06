@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InternHub - Internship & Events Finder</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="logo">Intern<span>Hub</span></div>
+
+    <nav class="nav-links">
+      <button class="nav-btn active" data-page="home">Home</button>
+      <button class="nav-btn" data-page="internships">Internships</button>
+      <button class="nav-btn" data-page="companies">Companies</button>
+      <button class="nav-btn" data-page="events">College Events</button>
+      <button class="nav-btn" data-page="request">Request Company</button>
+      <button class="nav-btn admin" data-page="admin">Admin</button>
+    </nav>
+  </header>
+
+  <!-- MAIN -->
+  <main class="container">
+
+    <!-- HOME -->
+    <section id="page-home" class="page show">
+      <h1>Find Free, Paid & Community Internships 🧑‍💻</h1>
+      <p class="muted">
+        Search internships, view success stats, and request companies directly using HR email.
+      </p>
+
+      <div class="hero-grid">
+        <div class="hero-card">
+          <h3>🔥 Trending Internships</h3>
+          <div id="trendingList" class="list"></div>
+        </div>
+
+        <div class="hero-card">
+          <h3>🏆 Best Success Rate</h3>
+          <div id="bestSuccessList" class="list"></div>
+        </div>
+
+        <div class="hero-card">
+          <h3>🎓 Upcoming College Events</h3>
+          <div id="homeEventsList" class="list"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERNSHIPS -->
+    <section id="page-internships" class="page">
+      <div class="page-head">
+        <h2>Internships</h2>
+        <p class="muted">Filter by type and search by company or role.</p>
+      </div>
+
+      <div class="filters">
+        <input id="searchInput" type="text" placeholder="Search: Web Dev, Data Science, Google..." />
+        <select id="typeFilter">
+          <option value="all">All Types</option>
+          <option value="Free">Free</option>
+          <option value="Paid">Paid</option>
+          <option value="Community">Community</option>
+        </select>
+        <select id="modeFilter">
+          <option value="all">All Modes</option>
+          <option value="Online">Online</option>
+          <option value="Offline">Offline</option>
+          <option value="Hybrid">Hybrid</option>
+        </select>
+        <button id="clearFilters" class="btn">Clear</button>
+      </div>
+
+      <div id="internshipGrid" class="grid"></div>
+    </section>
+
+    <!-- COMPANIES -->
+    <section id="page-companies" class="page">
+      <div class="page-head">
+        <h2>Companies</h2>
+        <p class="muted">Click a company to view HR mail and success stats.</p>
+      </div>
+
+      <div id="companyGrid" class="grid"></div>
+
+      <div id="companyDetails" class="details hidden"></div>
+    </section>
+
+    <!-- EVENTS -->
+    <section id="page-events" class="page">
+      <div class="page-head">
+        <h2>College Events</h2>
+        <p class="muted">Hackathons, paper presentations, workshops and more.</p>
+      </div>
+
+      <div id="eventsGrid" class="grid"></div>
+    </section>
+
+    <!-- REQUEST -->
+    <section id="page-request" class="page">
+      <div class="page-head">
+        <h2>Request a Company Internship</h2>
+        <p class="muted">
+          If a company is not providing internships, request them using HR email.
+        </p>
+      </div>
+
+      <form id="requestForm" class="form">
+        <div class="form-row">
+          <label>Company Name</label>
+          <input id="reqCompany" required placeholder="Example: Zoho" />
+        </div>
+
+        <div class="form-row">
+          <label>HR Email</label>
+          <input id="reqEmail" type="email" required placeholder="hr@company.com" />
+        </div>
+
+        <div class="form-row">
+          <label>Role Requested</label>
+          <input id="reqRole" required placeholder="Example: Web Development Intern" />
+        </div>
+
+        <div class="form-row">
+          <label>Your Name</label>
+          <input id="reqName" required placeholder="Your name" />
+        </div>
+
+        <div class="form-row">
+          <label>Your College</label>
+          <input id="reqCollege" required placeholder="College name" />
+        </div>
+
+        <div class="form-row">
+          <label>Message (Auto template)</label>
+          <textarea id="reqMessage" rows="7"></textarea>
+        </div>
+
+        <button class="btn primary" type="submit">Save Request + Open Gmail 📩</button>
+      </form>
+
+      <div class="page-head" style="margin-top: 30px;">
+        <h3>Saved Requests</h3>
+        <p class="muted">Stored in localStorage (demo).</p>
+      </div>
+
+      <div id="requestsList" class="grid"></div>
+    </section>
+
+    <!-- ADMIN -->
+    <section id="page-admin" class="page">
+      <div class="page-head">
+        <h2>Admin Panel (Demo)</h2>
+        <p class="muted">
+          Add internships locally (stored in your browser). This simulates backend.
+        </p>
+      </div>
+
+      <form id="adminForm" class="form">
+        <div class="two-col">
+          <div class="form-row">
+            <label>Company Name</label>
+            <input id="adCompany" required />
+          </div>
+
+          <div class="form-row">
+            <label>Company Website</label>
+            <input id="adWebsite" required placeholder="https://company.com" />
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="form-row">
+            <label>HR Email</label>
+            <input id="adHrEmail" required type="email" />
+          </div>
+
+          <div class="form-row">
+            <label>Internship Title</label>
+            <input id="adTitle" required placeholder="Frontend Developer Intern" />
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="form-row">
+            <label>Type</label>
+            <select id="adType">
+              <option>Free</option>
+              <option>Paid</option>
+              <option>Community</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label>Mode</label>
+            <select id="adMode">
+              <option>Online</option>
+              <option>Offline</option>
+              <option>Hybrid</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="form-row">
+            <label>Stipend (if paid)</label>
+            <input id="adStipend" placeholder="Example: ₹8000 / month" />
+          </div>
+
+          <div class="form-row">
+            <label>Apply Link</label>
+            <input id="adApply" required placeholder="https://..." />
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="form-row">
+            <label>Applicants</label>
+            <input id="adApplicants" required type="number" min="0" />
+          </div>
+
+          <div class="form-row">
+            <label>Selected</label>
+            <input id="adSelected" required type="number" min="0" />
+          </div>
+        </div>
+
+        <button class="btn primary" type="submit">Add Internship</button>
+      </form>
+
+      <button id="resetDemo" class="btn danger">Reset Demo Data</button>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>Made with ❤️ for students • InternHub</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
